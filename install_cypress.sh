@@ -59,6 +59,7 @@ mongodb_key_id="7F0CEB10"
 libxml_archive="libxml2-${install_libxml_ver}.tar.gz"
 
 # Variables that are set by options to the script
+quiet=0
 config_proxy=0
 proxy_host=""
 proxy_port=80
@@ -282,6 +283,11 @@ if [ $# -gt 0 ]; then
   #echo "Processing args..."
   while [ $# -gt 0 ]; do
     case "$1" in
+      --quiet)
+        quiet=1
+        shift
+        ;;
+
       --import)
         import_valuesets=1
         shift
@@ -391,6 +397,8 @@ if [ $config_proxy -eq 1 ]; then
   actionstr="${actionstr}
 * Configure a system-wide HTTP proxy using ${proxy_host}:${proxy_port}"
 fi
+
+if [ $quiet -eq 0 ]; then
 cat << WELCOME_END
 
 ==============================================================================
@@ -418,6 +426,7 @@ if [ "$doit" == "" -o "${doit//N/n}" == "n" ]; then
   abort "Aborting per user request."
 fi
 
+fi
 ##########
 # Task 1: Install server support packages
 ##########

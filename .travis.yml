@@ -1,3 +1,3 @@
 
-script: sudo ./install_cypress.sh
+script: sudo ./install_cypress.sh --quiet
 language: c
